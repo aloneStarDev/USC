@@ -11,7 +11,7 @@ session_start();
         <link rel="stylesheet" href="lib/bootstrap-4.3.1-dist/css/bootstrap.css">
         <link rel="stylesheet" href="lib/bootstrap-4.3.1-dist/css/bootstrap.min.css">
         <link href="lib/fontawesome-free-5.11.2-web/css/all.css" rel="stylesheet">
-        <link rel="stylesheet" href="Style.css">
+        <link rel="stylesheet" href="LoginStyle.css">
         <title>امور کلاس ها</title>
     </head>
     <body>
