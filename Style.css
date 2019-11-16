@@ -1,0 +1,82 @@
+body{
+    background-image:url(ROOT/BG1.jpg);
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+.formCenter{
+    display: block;
+    transform: translate(0,150%);
+    padding: 20px;
+}
+.input-group-text:hover{
+    border: 1px solid red;
+}
+.input-group-text{
+    border: 1px solid rgba(0,0,0,0.1);
+    color:white;
+    margin: 10px;
+    background: rgba(0,0,0,0.3);
+}
+
+.input-group-text:focus{
+    background: rgba(0,0,0,0.7);
+}
+.btn-form{
+    text-align: center;
+    border: 1px solid green;
+    margin: 10px;
+    background: rgba(0,255,0,0.5);
+}
+.far{
+    color:black;
+}
+.btn-form:hover{
+    text-align: center;
+    border: 1px solid red;
+    animation-name: star;
+    animation-duration: 400ms;
+    transition-property: background-color;
+    transition-timing-function: linear;
+    animation-timing-function:linear;
+    animation-iteration-count: 2;
+    color: white;
+    background: linear-gradient(45deg,rgba(0,255,0,0.5),rgba(255,0,0,0.3),rgba(0,255,0,0.5));
+}
+@keyframes star {
+0%{
+    background: linear-gradient(45deg,rgba(255,0,0,0.3),rgba(0,255,0,0.5),rgba(0,255,0,0.5));
+}
+33%{
+    background: linear-gradient(45deg,rgba(0,255,0,0.5),rgba(255,0,0,0.3),rgba(0,255,0,0.5));
+}
+66%{
+    background: linear-gradient(45deg,rgba(0,255,0,0.5),rgba(0,255,0,0.5),rgba(255,0,0,0.3));
+}
+100%{
+    background: linear-gradient(45deg,rgba(255,0,0,0.3),rgba(0,255,0,0.5),rgba(0,255,0,0.5));
+}
+}
+#passVisible{
+    position: absolute;
+    display: block;
+    padding: 10px 0;
+    transform: translate(-20px);
+}
+#passVisible:hover{
+    cursor: pointer;
+    animation:eye 600ms;
+    animation-iteration-count: infinite;
+}
+@keyframes eye{
+    0%{
+        transform: translate(-20px,5px);
+    }
+    50%{
+        transform: translate(-20px,-10px);
+    }
+    100%{
+        transform: translate(-20px,5px);
+    }
+}
+.addform
+
