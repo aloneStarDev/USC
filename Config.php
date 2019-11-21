@@ -4,6 +4,7 @@ return array(
     'User'=>"Star",
     'Pass'=>"Amirhossein13781206",
     'dbName'=>"USC",
-    "Admin"=>"Admin"
+    "Admin"=>"Admin",
+    "Path"=>"localhost/USC_Project"
 );
-//comment
+

@@ -1,0 +1,10 @@
+#AddForm{
+    display: none;
+}
+#closeForm{
+    color:red;
+    cursor: pointer;
+    display: inline;
+    font-size: 50px;
+    direction: rtl;
+}
