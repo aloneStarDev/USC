@@ -26,6 +26,8 @@ session_start(); ?>
 
 </head>
 <body>
+
+<button class="btn-link btn-outline-success"><a href='Login.php'>خروج از حساب کاربری </a></button>
     <?php
     $config = include('Config.php');
     $Host = $config['Host'];
@@ -94,14 +96,13 @@ session_start(); ?>
 ";
             }
     }
-    function showTableMessage(){
+    function showAddMessageForm(){
         echo "<h1 class='text-center'> خوش آمدید ".$_SESSION['Name']."</h1>
         <div id='AddMessage' style='display: none'>
             <form action='User.php' method='post' class='form-group'>
                 <span onclick=\"show('AddMessage','btnAddMessage')\" id='closeForm'>
                 &times;
                 </span><br>
-                <input type='hidden' name='Type' value='AddMessage'/>
                 <input type='text'  name='TeacherName' class='input-group input-group-text' placeholder='نام استاد'>
                 <input type='text'  name='ClassName' class='input-group input-group-text' placeholder='نام کلاس'>
                 <input type='text' name='Time' class='btn btn-dark form-control' placeholder='انتخاب زمان' id='demo-input'>
@@ -120,12 +121,10 @@ session_start(); ?>
                 // TODO: time changed
                 console.log(this.value);
             });
-        $('#demo-input').clockpicker({
-            autoclose: true
-        });
-    </script>
- 
-       
+            $('#demo-input').clockpicker({
+                autoclose: true
+            });
+        </script>
         ";
     }
     function delUser(){
@@ -160,41 +159,89 @@ session_start(); ?>
     function addMessages(){
         global $conn;
         $TeacherName=$_POST['TeacherName'];
-        $ClassTime=$_POST['ClassTime'];
-        $ClassDate=$_POST['ClassTime'];
+        $ClassTime=$_POST['Time'];
+        $ClassDate=$_POST['Date'];
         $ClassName=$_POST['ClassName'];
         $ByHow = $_SESSION['Name'];
-        $pre = $conn->prepare("insert into Main(TeacherName,ClassName,Date,Time,byHow) values (?,?,?,?)");
+        $pre = $conn->prepare("insert into Main(TeacherName,ClassName,Date,Time,byHow) values (?,?,?,?,?)");
         $pre->bind_param("sssss",$TeacherName,$ClassName,$ClassDate,$ClassTime,$ByHow);
-        $pre->execute() or die("خطایی رخ داد");
+        if($pre->execute() or die("خطایی رخ داد"))
+            echo "<script>alert('پیام شما با موفقیت ثبت شد')</script>";
     }
-    function showMessages(){
+    function showTableMessages(){
+        global $conn;
+        if($conn){
+            echo "
+        <div class='table-responsive'>
+                <table class='table table-hover' id='userTable'>
+                    <thead>
+                        <tr>
+                            <th>شناسه</th>
+                            <th>تاریخ کلاس</th>
+                            <th>زمان کلاس</th>
+                            <th>نام کلاس</th>
+                            <th>نام استاد</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+             ";
+            $res = $conn->query("select * from Main");
+            $count = $res->num_rows;
+            while($count>0)
+            {
+                $row=$res->fetch_assoc();
+                echo "
+                    <tr>
+                        <td>".$row['ID']."</td>
+                        <td>".$row['Date']."</td>
+                        <td>".$row['Time']."</td>
+                        <td>".$row['ClassName']."</td>
+                        <td>".$row['TeacherName']."</td>
+                    </tr>
+                ";
+                $count--;
+            }
+            echo "</tbody></table></div>";
+
+        }
+        else
+            echo "<script>alert('مشکلی در ارتباط به وجود آمده است')</script>";
 
     }
-    if(is_null($_SESSION['Name']) && !isset($_SESSION['Name'])){
-        session_destroy();
-        header("Location:Login.php");
-    }
-    else if($_SESSION['UserName']==$config["Admin"]){
-        showTable();
-        if($_SERVER['REQUEST_METHOD']='get')
-        {
-            if(isset($_GET['delete']) && !is_null($_GET['delete']))
-                delUser();
-            if(isset($_GET['update']) && !is_null($_GET['update']))
-                updateUser();
+    function init(){
+        global $config;
+        if(is_null($_SESSION['Name']) && !isset($_SESSION['Name'])){
+            session_destroy();
+            header("Location:Login.php");
         }
-        if($_SERVER['REQUEST_METHOD']=='POST'){
-            if(isset($_POST['Name']) && $_POST['Name']!='' && isset($_POST['UserName']) && $_POST['UserName']!='' && isset($_POST['PassWord']) && $_POST['PassWord']!='')
+        else if($_SESSION['UserName']==$config["Admin"]){
+            showTable();
+            if($_SERVER['REQUEST_METHOD']='get')
+            {
+                if(isset($_GET['delete']) && !is_null($_GET['delete']))
+                    delUser();
+                if(isset($_GET['update']) && !is_null($_GET['update']))
+                    updateUser();
+            }
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                if(isset($_POST['Name']) && $_POST['Name']!='' && isset($_POST['UserName']) && $_POST['UserName']!='' && isset($_POST['PassWord']) && $_POST['PassWord']!='')
                     addUser();
+            }
+        }
+        else{
+            if($_SERVER['REQUEST_METHOD']=='POST') {
+                if($_POST['TeacherName']!="" && $_POST['ClassName']!=" " && $_POST['Time']!=" " && $_POST['Date'] != "")
+                {
+                    addMessages();
+                }
+                else
+                    echo "<script>alert(' پیام شما ثبت نشد .... لطفا تمام فیلد ها را پرکنید')</script>";
+            }
+            showAddMessageForm();
+            showTableMessages();
         }
     }
-    else{
-        if($_SERVER['REQUEST_METHOD']=='POST') {
-
-        }
-        showTableMessage();
-    }
+    init();
     ?>
     <script>
         function show(formId,formbtn) {
