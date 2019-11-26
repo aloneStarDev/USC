@@ -1,0 +1,27 @@
+body{
+    background-image: url("../img/BG1.jpg");
+}
+#AddForm{
+    display: none;
+}
+#UpdateForm{
+    display: none;
+}
+.closeForm{
+    color:red;
+    cursor: pointer;
+    display: inline;
+    font-size: 50px;
+    direction: rtl;
+}
+#UpdateMessageForm{
+    display: none;
+}
+.table{
+    background-color:rgba(100%,100%,100%,0.5);
+}
+.input-group-text{
+    font-size: 20px;
+    color:lightcyan;
+    background-color: rgba(0,0,255,0.5);
+}

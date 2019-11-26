@@ -1,5 +1,5 @@
 body{
-    background-image:url(ROOT/BG1.jpg);
+    background-image:url(../img/BG1.jpg);
     background-repeat: no-repeat;
     background-size: auto;
 }
@@ -40,7 +40,7 @@ body{
     animation-timing-function:linear;
     animation-iteration-count: 2;
     color: white;
-    background: linear-gradient(45deg,rgba(0,255,0,0.5),rgba(255,0,0,0.3),rgba(0,255,0,0.5));
+    /*background: linear-gradient(45deg,rgba(0,255,0,0.5),rgba(255,0,0,0.3),rgba(0,255,0,0.5));*/
 }
 @keyframes star {
 0%{
@@ -78,5 +78,4 @@ body{
         transform: translate(-20px,5px);
     }
 }
-.addform
 

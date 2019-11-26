@@ -5,6 +5,8 @@ return array(
     'Pass'=>"Amirhossein13781206",
     'dbName'=>"USC",
     "Admin"=>"Admin",
-    "Path"=>"localhost/USC_Project"
+    "Path"=>"localhost/USC_Project",
+    "BotToken"=>"",
+    "channelId"=>""
 );
 
