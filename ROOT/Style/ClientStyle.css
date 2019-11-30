@@ -10,7 +10,7 @@ body{
 }
 .target-text:hover{
     cursor: pointer;
-    color:red;
+    color:lightcyan;
     animation-name: animate ;
     animation-duration: 650ms;
     animation-timing-function: steps(1000);
@@ -42,4 +42,30 @@ body{
     100%{
         background: linear-gradient(90deg,rgba(255,255,255,0.2),rgba(255,255,255,0.1),rgba(255,255,255,0.1),rgba(255,255,255,0.1));
     }
+}
+.container{
+    padding:10px;
+    border: 5px solid #479ee5;
+    background:rgba(193,192,191,0.5);
+    border-radius: 5px;
+}
+.bg2{
+    height: 100%;
+    background:url("../img/pattern.png");
+    background-repeat: repeat;
+    background-size: 100px 100px;
+}
+.target-text:first-child{
+    border-top-left-radius:  20px;
+    border-top-right-radius:  20px;
+
+}
+
+.target-text:last-child{
+    border-bottom-left-radius:  20px;
+    border-bottom-right-radius:  20px;
+
+}
+.imp{
+    color:red;
 }

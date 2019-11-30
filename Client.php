@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="ROOT/Style/ClientStyle.css">
 </head>
 <body>
+
 <head>
     <h1 class="text-center text-info">امور کلاس ها</h1>
     <nav class="nav nav-header">
@@ -17,7 +18,9 @@
         <a href="somelink">سایت اصلی</a>
     </nav>
 </head>
-<?php
+<div class="container">
+    <div class="bg2">
+    <?php
     require_once("lib/PersianCalenderLib/PersianCalendar.php");
     $config = include('Config.php');
     $Host = $config['Host'];
@@ -37,8 +40,8 @@
             while($count > 0)
             {
                 $row = $res->fetch_assoc();
-                $date = str_getcsv($row['Date'],'-');
-                $time = str_getcsv($row["Time"],':');
+                $date = str_getcsv($row['Date'],'-');//1378-12-06
+                $time = str_getcsv($row["Time"],':');//12:13:00
                 $T =["year"=>$date[0],
                     "month"=>$date[1],
                     "day"=>$date[2],
@@ -62,5 +65,8 @@
     }
 
     ?>
+    </div>
+</div>
+
 </body>
 </html>

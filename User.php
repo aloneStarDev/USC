@@ -1,6 +1,6 @@
 <?php
-// Redirect Problem
-session_start(); ?>
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -280,31 +280,35 @@ session_start(); ?>
         $pre->bind_param("sssss",$TeacherName,$ClassName,$ClassDate,$ClassTime,$ByHow);
         if($pre->execute() or die("خطایی رخ داد"))
         {
-            include("lib/Telegram/TelegramBotPHP-master/Telegram.php");
-            $bot = new Telegram($config['BotToken']);
             require_once("lib/PersianCalenderLib/PersianCalendar.php");
-            $date = str_getcsv($ClassDate,'/');
-            $time = str_getcsv($ClassTime,':');
-            $T = [
-                "year"=>$date[0],
+            include("lib/Telegram/TelegramBotPHP-master/Telegram.php");
+            $text = "";
+            $date = str_getcsv($ClassDate,'/');//1378/12/06
+            $time = str_getcsv($ClassTime.":00",':');//12:13
+            $T =["year"=>$date[0],
                 "month"=>$date[1],
                 "day"=>$date[2],
                 "hour"=>$time[0],
                 "minutes"=>$time[1],
+                "second"=>$time[2],
             ];
-            $t0 = make_time($T['hour'],$T['minutes'],0,$T['month'],$T['day'],$T['year']);
-            $tres =  mds_date('l j F Y ساعت i : G',$t0,1);
-            $text = "";
+            $t0 = make_time($T['hour'],$T['minutes'],$T['second'],$T['month'],$T['day'],$T['year']);
+            $tres =  mds_date('l j F y ساعت i : G',$t0,1);
             if($time[0] =="00" && $time[1] == "00")
             {
-                $tres = mds_date('l j F Y', $t0, 1);
-                $text =  "کلیه ی کلاس های استاد " . $TeacherName . " مورخ " . $tres . " تشکیل نخواهد شد ";
+                $tres = mds_date('l j F y', $t0, 1);
+                $text = "کلیه ی کلاس های استاد " ."<strong>".$TeacherName ."</strong>". " مورخ " . $tres . " تشکیل نخواهد شد ";
             }
             else
-                $text =  " کلاس ".$ClassName." استاد ".$TeacherName." مورخ ".$tres." تشکیل نخواهد شد ";
-            $content = ["chat_id"=>$config['channelId'],"text"=>$text];
+                $text = " کلاس "."<strong>".$ClassName."</strong>"." استاد "."<strong>".$TeacherName."</strong>"." مورخ ".$tres." تشکیل نخواهد شد ";
+
+            $bot = new Telegram($config['BotToken']);
+            $content = array(
+                    "chat_id"=>$config['channelId'],
+                    "text"=>$text,
+                    "parse_mode"=>"HTML"
+            );
             $bot->sendMessage($content);
-            echo "<script>alert('پیام شما با موفقیت ثبت شد')</script>";
         }
     }
     function showTableMessages(){
@@ -314,7 +318,7 @@ session_start(); ?>
         <div class='table-responsive'>
                 <table class='table table-hover' id='userTable'>
                     <thead>
-                        <tr>
+                        <tr class='tr'>
                             <th>حذف</th>
                             <th>ویرایش</th>
                             <th>شناسه</th>

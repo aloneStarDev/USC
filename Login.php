@@ -15,21 +15,22 @@ session_start();
         <title>امور کلاس ها</title>
     </head>
     <body>
+    <h3 class="text-center bg-secondary">امور کلاس ها</h3>
     <div class="container">
         <div class="formCenter">
+            <img src="ROOT/img/logo.png" width="128px" height="auto" class="logo">
             <form method="post" action="Login.php">
                 <input id="user_" class="input-group input-group-text " type="text" placeholder="نام کاربری" name="UserName" />
                 <i class="far fa-eye" id="passVisible" onclick="ch()"></i>
                 <input id="pass_" class="input-group input-group-text " type="password" placeholder="گذرواژه" name="PassWord" />
                 <input class="input-group-text btn-login" type="submit" value="ورود"/>
-
             </form>
         </div>
     </div>
     <?php
 
     class Main{
-        public $ID,$UserName,$PassWord,$Name,$TelegramId;
+        public $ID,$UserName,$PassWord,$Name,$TelegramID;
     }
     $config = include('Config.php');
     $Host = $config['Host'];
